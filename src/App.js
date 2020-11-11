@@ -1,42 +1,44 @@
 import './App.css'
-import React, {Component} from 'react'
+// import React, {Component} from 'react'
+import React, {useState, useEffect} from 'react'
+import Shipments from './Shipments'
 
-class App extends Component {
+function App() {
 
-  state = {
-    client: 'Broko'
-  }
+  const [client, setClient] = useState('Broko')
+  const [clientShipments, setShipmentsList] = useState([])
 
-  componentDidMount() {
-    this.fetchShipments()
-  }
   
-  fetchShipments = () => {
+  const fetchShipments = () => {
+
     let query_params = new URLSearchParams({
       // 'limit': 10,
       'query_type': 'and',
-      'Client Name': this.state.client,
+      'Client Name': client,
     })
+
     let url = 'https://sheet2api.com/v1/OW9YmRzCQ3zF/logixboard_shipment_data/Sheet1?' + query_params;
-    fetch(url)
-    .then(response => response.json())
+    fetch(url).then(response => response.json())
     .then(data => {
       console.log('Success:', data)
+      setShipmentsList(data)
     })
-    .catch((error) => {
-      console.error('Error:', error)
-    })
-  }
+    .catch((error) => {console.error('Error:', error)})
 
-  render(){
-    return (
-      <div className="App">
-        <header className="App-header">
-          <h1>LogixBoard Shipment Data</h1>
-        </header>
-      </div>
-    )
   }
+  
+  useEffect(fetchShipments, [client])
+
+  return (
+    <div className="App">
+      <header className="App-header">
+        <h1>LogixBoard Shipment Data</h1>
+      </header>
+      <main>
+        <Shipments shipments={clientShipments} />
+      </main>
+    </div>
+  )
 }
 
 export default App;
