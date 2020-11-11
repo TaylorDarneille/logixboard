@@ -1,36 +1,51 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useTable } from 'react-table'
  
 function Shipments(props) {
 
-    // const data = React.useMemo(() => props.clientShipments,[])
+    useEffect(()=>{
+        console.log('props.shipments:')
+        console.log(props.shipments)
+    })
+
     const data = React.useMemo(
-    () => [
-        {
-        col1: 'Hello',
-        col2: 'World',
-        },
-        {
-        col1: 'react-table',
-        col2: 'rocks',
-        },
-        {
-        col1: 'whatever',
-        col2: 'you want',
-        },
-    ],
-    []
+        () => props.shipments,
+        []
     )
 
     const columns = React.useMemo(
         () => [
             {
-            Header: 'Column 1',
-            accessor: 'col1', // accessor is the "key" in the data
+                Header: 'Shipment ID',
+                accessor: 'Shipment ID', // accessor is the "key" in the data
             },
             {
-            Header: 'Column 2',
-            accessor: 'col2',
+                Header: 'Client Name',
+                accessor: 'Client Name',
+            },
+            {
+                Header: 'Origin',
+                accessor: 'Origin',
+            },
+            {
+                Header: 'Destination',
+                accessor: 'Destination',
+            },
+            {
+                Header: 'Mode',
+                accessor: 'Mode',
+            },
+            {
+                Header: 'Estimated Departure',
+                accessor: 'Estimated Departure',
+            },
+            {
+                Header: 'Estimated Arrival',
+                accessor: 'Estimated Arrival',
+            },
+            {
+                Header: 'Status',
+                accessor: 'Status',
             },
         ],
         []
