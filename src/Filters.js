@@ -15,13 +15,13 @@ function Filters(props) {
         <div className='filters'>
             <Dropdown 
                 options={clientsSet} 
-                filterName='client' 
+                filterName='Client Name' 
                 handleFilterChange={props.handleFilterChange} 
                 currentFilterValue={props.currentFilters.client}
             />
             <Dropdown 
                 options={statusSet} 
-                filterName='status' 
+                filterName='Status' 
                 handleFilterChange={props.handleFilterChange} 
                 currentFilterValue={props.currentFilters.client}
             />

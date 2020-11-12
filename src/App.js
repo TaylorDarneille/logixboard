@@ -14,7 +14,7 @@ function App() {
   const [filteredShipments, setFilteredShipments] = useState([])
 
   const filterShipments = () =>{
-    console.log("filter shipments running inside useMemo")
+    console.log("filterShipments triggered")
     let filteredShipments = data.filter(shipment=>{
       for(const field in filters) {
         if(filters[field]!==shipment[field] && filters[field]!=='all') {
@@ -44,7 +44,10 @@ function App() {
   // }
 
   const handleFilterChange = (e) =>{
-    console.log("handleFilterchange triggered")
+    // console.log("handleFilterchange triggered")
+    let newFilterState = filters
+    filters[e.target.name] = e.target.value
+    setFilters(newFilterState)
   }
     
   useEffect(filterShipments, [filters])
