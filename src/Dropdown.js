@@ -7,7 +7,8 @@ function Dropdown(props) {
     })
     return (
         <div className='filters'>
-            <select name={props.filterName} id={props.filterName}>
+            <select name={props.filterName} id={props.filterName} onChange={props.handleFilterChange} value={props.currentFilterValue}>
+                <option value='all'>{`${props.filterName} (all)`}</option>
                 {options}
             </select>
         </div>

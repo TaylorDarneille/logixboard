@@ -4,9 +4,12 @@ import Shipments from './Shipments'
 import Filters from './Filters'
 import data from './data.json'
 
+const initialFilters = {}
+initialFilters['Client Name'] = 'all'
+initialFilters['Status'] = 'all'
+
 function App() {
-  // const [client, setClient] = useState('Broko')
-  const [filters, setFilters] = useState({Status:'Arrived'})
+  const [filters, setFilters] = useState(initialFilters)
   // const [allShipments, setAllShipments] = useState([])
   const [filteredShipments, setFilteredShipments] = useState([])
 
@@ -14,8 +17,7 @@ function App() {
     console.log("filter shipments running inside useMemo")
     let filteredShipments = data.filter(shipment=>{
       for(const field in filters) {
-        if(filters[field]!==shipment[field]){
-          console.log(`${field}:${filters[field]} does not match ${field}:${shipment[field]}`)
+        if(filters[field]!==shipment[field] && filters[field]!=='all') {
           return false
         }
       }
@@ -40,6 +42,10 @@ function App() {
       // })
       // .catch((error) => {console.error('Error:', error)})
   // }
+
+  const handleFilterChange = (e) =>{
+    console.log("handleFilterchange triggered")
+  }
     
   useEffect(filterShipments, [filters])
 
@@ -49,7 +55,7 @@ function App() {
         <h1>LogixBoard Shipment Data</h1>
       </header>
       <main>
-        <Filters allShipments={data}/>
+        <Filters allShipments={data} handleFilterChange={handleFilterChange} currentFilters={filters}/>
         <Shipments filteredShipments={filteredShipments} />
       </main>
     </div>

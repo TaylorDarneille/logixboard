@@ -13,8 +13,18 @@ function Filters(props) {
     let statusSet = [...new Set(status)]
     return (
         <div className='filters'>
-            <Dropdown options={clientsSet} filterName='Client Name' />
-            <Dropdown options={statusSet} filterName='Status' />
+            <Dropdown 
+                options={clientsSet} 
+                filterName='client' 
+                handleFilterChange={props.handleFilterChange} 
+                currentFilterValue={props.currentFilters.client}
+            />
+            <Dropdown 
+                options={statusSet} 
+                filterName='status' 
+                handleFilterChange={props.handleFilterChange} 
+                currentFilterValue={props.currentFilters.client}
+            />
         </div>
     )
 }
