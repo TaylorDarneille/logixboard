@@ -1,17 +1,17 @@
 import './App.css'
 import React from 'react'
 
-function StatusDropDown(props) {
+function Dropdown(props) {
     let options = props.options.map(option=>{
         return <option value={option}>{option}</option>
     })
     return (
         <div className='filters'>
-            <select name='status' id='status'>
+            <select name={props.filterName} id={props.filterName}>
                 {options}
             </select>
         </div>
     )
 }
 
-export default StatusDropDown;
+export default Dropdown;

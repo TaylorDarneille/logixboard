@@ -1,7 +1,6 @@
 import './App.css'
 import React from 'react'
-import ClientDropDown from './ClientDropDown'
-import StatusDropDown from './StatusDropDown'
+import Dropdown from './Dropdown'
 
 function Filters(props) {
     let clients = props.allShipments.map(shipment=>{
@@ -14,8 +13,8 @@ function Filters(props) {
     let statusSet = [...new Set(status)]
     return (
         <div className='filters'>
-            <ClientDropDown options={clientsSet} />
-            <StatusDropDown options={statusSet} />
+            <Dropdown options={clientsSet} filterName='Client Name' />
+            <Dropdown options={statusSet} filterName='Status' />
         </div>
     )
 }
