@@ -1,33 +1,47 @@
 import './App.css'
-// import React, {Component} from 'react'
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useMemo} from 'react'
 import Shipments from './Shipments'
+import Filters from './Filters'
+import data from './data.json'
 
 function App() {
+  // const [client, setClient] = useState('Broko')
+  const [filters, setFilters] = useState({Status:'Arrived'})
+  // const [allShipments, setAllShipments] = useState([])
+  const [filteredShipments, setFilteredShipments] = useState([])
 
-  const [client, setClient] = useState('Broko')
-  const [clientShipments, setShipmentsList] = useState([])
-
-  
-  const fetchShipments = () => {
-
-    let query_params = new URLSearchParams({
-      // 'limit': 10,
-      'query_type': 'and',
-      'Client Name': client,
+  const filterShipments = () =>{
+    console.log("filter shipments running inside useMemo")
+    let filteredShipments = data.filter(shipment=>{
+      for(const field in filters) {
+        if(filters[field]!==shipment[field]){
+          console.log(`${field}:${filters[field]} does not match ${field}:${shipment[field]}`)
+          return false
+        }
+      }
+      return true
     })
-
-    let url = 'https://sheet2api.com/v1/OW9YmRzCQ3zF/logixboard_shipment_data/Sheet1?' + query_params;
-    fetch(url).then(response => response.json())
-    .then(data => {
-      console.log('Success:', data)
-      setShipmentsList(data)
-    })
-    .catch((error) => {console.error('Error:', error)})
-
+    setFilteredShipments(filteredShipments)
   }
-  
-  useEffect(fetchShipments, [client])
+
+  // REACHED API CALL LIMIT, SO HAD TO SWITCH TO MANUAL JSON IMPORT
+  // const fetchShipments = () => {
+    // let query_params = new URLSearchParams({
+      //   'limit': 10,
+      //   'query_type': 'and',
+      //   'Client Name': client, // API call breaks without this - need to debug that part to get all rows at once
+      // })
+      
+      // let url = 'https://sheet2api.com/v1/eA5WHdSamLEn/logixboard_shipment_data_ii/Sheet1?' + query_params;
+      // fetch(url).then(response => response.json())
+      // .then(data => {
+      //   console.log('Success:', data)
+      //   setAllShipments(data)
+      // })
+      // .catch((error) => {console.error('Error:', error)})
+  // }
+    
+  useEffect(filterShipments, [filters])
 
   return (
     <div className="App">
@@ -35,7 +49,8 @@ function App() {
         <h1>LogixBoard Shipment Data</h1>
       </header>
       <main>
-        <Shipments shipments={clientShipments} />
+        <Filters allShipments={data}/>
+        <Shipments filteredShipments={filteredShipments} />
       </main>
     </div>
   )

@@ -4,13 +4,13 @@ import { useTable } from 'react-table'
 function Shipments(props) {
 
     useEffect(()=>{
-        console.log('props.shipments:')
-        console.log(props.shipments)
+        console.log('props.filteredShipments:')
+        console.log(props.filteredShipments)
     })
 
     const data = React.useMemo(
-        () => props.shipments,
-        []
+        () => props.filteredShipments,
+        [props.filteredShipments]
     )
 
     const columns = React.useMemo(
