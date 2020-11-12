@@ -40,3 +40,7 @@
 .filters {
   display: inline;
 }
+
+tbody {
+  color: black;
+}

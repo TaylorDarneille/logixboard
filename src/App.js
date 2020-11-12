@@ -53,12 +53,10 @@ function App() {
   useEffect(filterShipments, [filters])
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>LogixBoard Shipment Data</h1>
-      </header>
+    <div className="App-header">
+      <h1>LogixBoard Shipment Data</h1>
       <main>
-        <Filters allShipments={data} handleFilterChange={handleFilterChange} currentFilters={filters}/>
+        <Filters allShipments={data} handleFilterChange={handleFilterChange} currentFilters={filters} totalShipments={filteredShipments.length}/>
         <Shipments filteredShipments={filteredShipments} />
       </main>
     </div>
