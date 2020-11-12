@@ -44,10 +44,10 @@ function App() {
   // }
 
   const handleFilterChange = (e) =>{
-    // console.log("handleFilterchange triggered")
-    let newFilterState = filters
-    filters[e.target.name] = e.target.value
-    setFilters(newFilterState)
+    setFilters({
+      ...filters,
+      [e.target.name]: e.target.value
+    })
   }
     
   useEffect(filterShipments, [filters])
