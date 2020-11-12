@@ -34,7 +34,7 @@ function App() {
       //   'Client Name': client, // API call breaks without this - need to debug that part to get all rows at once
       // })
       
-      // let url = 'https://sheet2api.com/v1/eA5WHdSamLEn/logixboard_shipment_data_ii/Sheet1?' + query_params;
+      // let url = process.env.REACT_APP_SHEETS_URL + query_params;
       // fetch(url).then(response => response.json())
       // .then(data => {
       //   console.log('Success:', data)
