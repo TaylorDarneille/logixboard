@@ -63,7 +63,7 @@ function App() {
   useEffect(filterShipments, [filters])
 
   return (
-    <div className="App-header">
+    <div className="App">
       <h1>LogixBoard Shipment Data</h1>
       <main>
         <Filters 

@@ -1,4 +1,3 @@
-import './App.css'
 import React from 'react'
 import Dropdown from './Dropdown'
 
@@ -11,7 +10,7 @@ function Filters(props) {
     let statusSet = [...new Set(props.allShipments.map(shipment=>shipment['Status']))]
     
     return (
-        <div>
+        <div className="filters">
             <Dropdown 
                 options={clientsSet} 
                 filterName='Client Name' 

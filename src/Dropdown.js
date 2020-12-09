@@ -1,15 +1,34 @@
-import './App.css'
 import React from 'react'
 
+import Select from '@material-ui/core/Select'
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+    formControl: {
+      margin: theme.spacing(1),
+      minWidth: 120,
+      backgroundColor: 'white',
+    },
+    selectEmpty: {
+      marginTop: theme.spacing(2),
+    },
+  }));
+
 function Dropdown(props) {
+    const classes = useStyles()
 
     let options = props.options.map((option, i)=>{
         return <option key={i} value={option}>{option}</option>
     })
 
     return (
-        <div className='filters'>
-            <select 
+        <FormControl className={classes.formControl}>
+            <InputLabel htmlFor={props.filterName}>
+                {props.filterName}
+            </InputLabel>
+            <Select 
                 name={props.filterName} 
                 id={props.filterName} 
                 onChange={props.handleFilterChange} 
@@ -17,8 +36,8 @@ function Dropdown(props) {
             >
                 <option value='all'>{`${props.filterName} (all)`}</option>
                 {options}
-            </select>
-        </div>
+            </Select>
+        </FormControl>
     )
 }
 
