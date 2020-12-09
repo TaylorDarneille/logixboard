@@ -34,8 +34,6 @@ function Shipments(props) {
         prepareRow,
     } = useTable({ columns, data })
 
-    console.log("getHeaderGroupProps:", headerGroups[0].getHeaderGroupProps())
-
     return (
         <table {...getTableProps()}>
             <thead>
