@@ -18,7 +18,6 @@ function Shipments(props) {
         () => {
             let cols = []
             for (let key in props.filteredShipments[0]) {
-                console.log("Key:", key)
                 cols.push({Header: key, accessor: key})
             }
             return cols
@@ -34,52 +33,56 @@ function Shipments(props) {
         prepareRow,
     } = useTable({ columns, data })
 
+    const headerRow = headerGroups.map(headerGroup => (
+        <tr {...headerGroup.getHeaderGroupProps()}>
+            {headerGroup.headers.map(column => (
+                <th
+                {...column.getHeaderProps()}
+                style={{
+                    borderBottom: 'solid 3px red',
+                    background: 'aliceblue',
+                    color: 'black',
+                    fontWeight: 'bold',
+                }}
+                >
+                {column.render('Header')}
+                </th>
+            ))}
+        </tr>
+    ))
+
+    const bodyRows = rows.map(row => {
+        prepareRow(row)
+        return (
+            <tr {...row.getRowProps()}>
+                {row.cells.map(cell => {
+                return (
+                    <td
+                    {...cell.getCellProps()}
+                    style={{
+                        padding: '10px',
+                        border: 'solid 1px gray',
+                        background: 'papayawhip',
+                    }}
+                    >
+                    {cell.render('Cell')}
+                    </td>
+                )
+                })}
+            </tr>
+        )
+    })
+
     return (
         <table {...getTableProps()}>
             <thead>
-            {headerGroups.map(headerGroup => (
-                <tr {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map(column => (
-                    <th
-                    {...column.getHeaderProps()}
-                    style={{
-                        borderBottom: 'solid 3px red',
-                        background: 'aliceblue',
-                        color: 'black',
-                        fontWeight: 'bold',
-                    }}
-                    >
-                    {column.render('Header')}
-                    </th>
-                ))}
-                </tr>
-            ))}
+                {headerRow}
             </thead>
             <tbody {...getTableBodyProps()}>
-            {rows.map(row => {
-                prepareRow(row)
-                return (
-                <tr {...row.getRowProps()}>
-                    {row.cells.map(cell => {
-                    return (
-                        <td
-                        {...cell.getCellProps()}
-                        style={{
-                            padding: '10px',
-                            border: 'solid 1px gray',
-                            background: 'papayawhip',
-                        }}
-                        >
-                        {cell.render('Cell')}
-                        </td>
-                    )
-                    })}
-                </tr>
-                )
-            })}
+                {bodyRows}
             </tbody>
         </table>
-        )
-    }
+    )
+}
 
 export default Shipments

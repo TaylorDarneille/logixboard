@@ -1,5 +1,6 @@
 table {
     border: solid 1px blue;
+    margin: 5vh 0;
 }
 
 /* this style wasn't applying when I removed it 

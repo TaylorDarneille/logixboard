@@ -1,8 +1,8 @@
 import './App.css'
-import React, {useState, useEffect, useMemo} from 'react'
+import React, {useState, useEffect} from 'react'
+import data from './data.json'
 import Shipments from './Shipments'
 import Filters from './Filters'
-import data from './data.json'
 
 const initialFilters = {}
 initialFilters['Client Name'] = 'all'
@@ -12,19 +12,6 @@ function App() {
   const [filters, setFilters] = useState(initialFilters)
   // const [allShipments, setAllShipments] = useState([])
   const [filteredShipments, setFilteredShipments] = useState([])
-
-  const filterShipments = () =>{
-    console.log("filterShipments triggered")
-    let filteredShipments = data.filter(shipment=>{
-      for(const field in filters) {
-        if(filters[field]!==shipment[field] && filters[field]!=='all') {
-          return false
-        }
-      }
-      return true
-    })
-    setFilteredShipments(filteredShipments)
-  }
 
   // REACHED API CALL LIMIT, SO HAD TO SWITCH TO MANUAL JSON IMPORT
   // const fetchShipments = () => {
@@ -43,20 +30,48 @@ function App() {
       // .catch((error) => {console.error('Error:', error)})
   // }
 
+  // --------------------------
+  // runs on render (see useEffect)
+  // filters the list of shipments based on filters state
+  // --------------------------
+  const filterShipments = () =>{
+    let filteredShipments = data.filter(shipment=>{
+      for(const field in filters) {
+        if(filters[field]!==shipment[field] && filters[field]!=='all') {
+          return false
+        }
+      }
+      return true
+    })
+    setFilteredShipments(filteredShipments)
+  }
+
+  // -------------------------------
+  // Passed down to ilters > Dropdown component to change
+  // filters state based on change in dropdown
+  // -------------------------------
   const handleFilterChange = (e) =>{
     setFilters({
       ...filters,
       [e.target.name]: e.target.value
     })
   }
-    
+  
+  // -------------------------------
+  // calls filterShipments whenever filters state is set
+  // -------------------------------
   useEffect(filterShipments, [filters])
 
   return (
     <div className="App-header">
       <h1>LogixBoard Shipment Data</h1>
       <main>
-        <Filters allShipments={data} handleFilterChange={handleFilterChange} currentFilters={filters} totalShipments={filteredShipments.length}/>
+        <Filters 
+          allShipments={data} 
+          handleFilterChange={handleFilterChange} 
+          currentFilters={filters} 
+          totalShipments={filteredShipments.length}
+        />
         <Shipments filteredShipments={filteredShipments} />
       </main>
     </div>

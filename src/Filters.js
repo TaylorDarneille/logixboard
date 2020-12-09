@@ -3,14 +3,13 @@ import React from 'react'
 import Dropdown from './Dropdown'
 
 function Filters(props) {
-    let clients = props.allShipments.map(shipment=>{
-        return shipment['Client Name']
-    })
-    let clientsSet = [...new Set(clients)]
-    let status = props.allShipments.map(shipment=>{
-        return shipment['Status']
-    })
-    let statusSet = [...new Set(status)]
+    // ---------------------------------------
+    // each fieldSet uses Set constructor to pull all the values
+    // of that field from the data, the filter out duplicates
+    // ---------------------------------------
+    let clientsSet = [...new Set(props.allShipments.map(shipment=>shipment['Client Name']))]
+    let statusSet = [...new Set(props.allShipments.map(shipment=>shipment['Status']))]
+    
     return (
         <div>
             <Dropdown 
@@ -25,7 +24,7 @@ function Filters(props) {
                 handleFilterChange={props.handleFilterChange} 
                 currentFilterValue={props.currentFilters.client}
             />
-            <h3 className='filters'>Total: {props.totalShipments}</h3>
+            <h3>Total: {props.totalShipments}</h3>
         </div>
     )
 }
