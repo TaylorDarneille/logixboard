@@ -1,0 +1,12 @@
+table {
+    border: solid 1px blue;
+}
+
+/* this style wasn't applying when I removed it 
+from in-line so leaving as is for now */
+/* th {
+    border-bottom: 'solid 3px red';
+    background: 'aliceblue';
+    color: 'black';
+    font-weight: 'bold';
+} */

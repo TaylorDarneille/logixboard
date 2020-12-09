@@ -51,10 +51,12 @@ function ShipmentsGrid(props) {
         getTableProps,
         // getTableBodyProps - (f) required
         // resolves any props required for table body wrapper
+        // (in this case there are none)
         getTableBodyProps,
         // headerGroups - array header groupings 
         // react-table allows for groups of headers (multiple header rows)
         // current data set only has a single header group
+        // currently returns {role: "rowgroup"}
         headerGroups,
         // rows - array of objs created from "data" and "columns" options
         rows,

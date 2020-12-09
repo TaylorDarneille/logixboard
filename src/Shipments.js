@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react'
 import { useTable } from 'react-table'
+import './ShipmentsGrid.css'
  
 function Shipments(props) {
 
-    useEffect(()=>{
-        console.log('props.filteredShipments:')
-        console.log(props.filteredShipments)
-    })
+    // useEffect(()=>{
+    //     console.log('props.filteredShipments:')
+    //     console.log(props.filteredShipments)
+    // })
 
     const data = React.useMemo(
         () => props.filteredShipments,
@@ -33,10 +34,10 @@ function Shipments(props) {
         prepareRow,
     } = useTable({ columns, data })
 
-    console.log("headerGroups:", headerGroups)
+    console.log("getHeaderGroupProps:", headerGroups[0].getHeaderGroupProps())
 
     return (
-        <table {...getTableProps()} style={{ border: 'solid 1px blue' }}>
+        <table {...getTableProps()}>
             <thead>
             {headerGroups.map(headerGroup => (
                 <tr {...headerGroup.getHeaderGroupProps()}>
