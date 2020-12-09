@@ -11,9 +11,6 @@ const useStyles = makeStyles((theme) => ({
       minWidth: 120,
       backgroundColor: 'white',
     },
-    selectEmpty: {
-      marginTop: theme.spacing(2),
-    },
   }));
 
 function Dropdown(props) {
