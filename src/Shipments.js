@@ -33,6 +33,8 @@ function Shipments(props) {
         prepareRow,
     } = useTable({ columns, data })
 
+    console.log("headerGroups:", headerGroups)
+
     return (
         <table {...getTableProps()} style={{ border: 'solid 1px blue' }}>
             <thead>

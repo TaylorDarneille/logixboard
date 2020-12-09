@@ -16,6 +16,7 @@ function ShipmentsGrid(props) {
     // memoize "data" as props.filteredShipments
     // only updates data when props.filteresShipments changes
     // this is purely for performance optimization
+    // (however, react-table docs state that data MUST be memoized)
     // ----------------------------------------------
     const data = React.useMemo(
         () => props.filteredShipments,
@@ -28,6 +29,7 @@ function ShipmentsGrid(props) {
     // accessor: key from "data" that corresponds to column header
     // Header does not have to be the same as accessor
     // this piece of code is purely for scalability/flexibility
+    // (however, the react-table docs state this value MUST be memoized)
     // memoizing columns *really* only becomes useful if
     // the structure of data might be changing (ie diff clients have diff cols)
     // ----------------------------------------------
@@ -42,12 +44,24 @@ function ShipmentsGrid(props) {
         },
         [props.filteredShipments]
     )
-
+    
     const {
+        // getTableProps - required
+        // resolves any props required for table wrapper
         getTableProps,
+        // getTableBodyProps - (f) required
+        // resolves any props required for table body wrapper
         getTableBodyProps,
+        // headerGroups - array header groupings 
+        // react-table allows for groups of headers (multiple header rows)
+        // current data set only has a single header group
         headerGroups,
+        // rows - array of objs created from "data" and "columns" options
         rows,
+        // prepareRow - (f) required
+        // lazily preps row for rendering
+        // must be called for each row before every render
+        // useful for lart data sets that may be paginated etc.
         prepareRow,
     } = useTable({ columns, data })
 
