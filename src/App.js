@@ -1,7 +1,7 @@
 import './App.css'
 import React, {useState, useEffect} from 'react'
 import data from './data.json'
-import Shipments from './Shipments'
+import ShipmentsGrid from './ShipmentsGrid'
 import Filters from './Filters'
 
 const initialFilters = {}
@@ -72,7 +72,7 @@ function App() {
           currentFilters={filters} 
           totalShipments={filteredShipments.length}
         />
-        <Shipments filteredShipments={filteredShipments} />
+        <ShipmentsGrid filteredShipments={filteredShipments} />
       </main>
     </div>
   )

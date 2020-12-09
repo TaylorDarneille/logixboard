@@ -1,5 +1,13 @@
 import React, { useEffect } from 'react'
+
+import MaUTable from '@material-ui/core/Table'
+import TableBody from '@material-ui/core/TableBody'
+import TableCell from '@material-ui/core/TableCell'
+import TableHead from '@material-ui/core/TableHead'
+import TableRow from '@material-ui/core/TableRow'
+
 import { useTable } from 'react-table'
+import './ShipmentsGrid.css'
  
 function ShipmentsGrid(props) {
 
@@ -68,7 +76,7 @@ function ShipmentsGrid(props) {
     } = useTable({ columns, data })
 
     const headerRow = headerGroups.map(headerGroup => (
-        <tr {...headerGroup.getHeaderGroupProps()}>
+        <TableRow {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map(column => (
                 <th
                 {...column.getHeaderProps()}
@@ -82,16 +90,16 @@ function ShipmentsGrid(props) {
                 {column.render('Header')}
                 </th>
             ))}
-        </tr>
+        </TableRow>
     ))
 
     const bodyRows = rows.map(row => {
         prepareRow(row)
         return (
-            <tr {...row.getRowProps()}>
+            <TableRow {...row.getRowProps()}>
                 {row.cells.map(cell => {
                 return (
-                    <td
+                    <TableCell
                     {...cell.getCellProps()}
                     style={{
                         padding: '10px',
@@ -100,22 +108,22 @@ function ShipmentsGrid(props) {
                     }}
                     >
                     {cell.render('Cell')}
-                    </td>
+                    </TableCell>
                 )
                 })}
-            </tr>
+            </TableRow>
         )
     })
 
     return (
-        <table {...getTableProps()}>
-            <thead>
+        <MaUTable {...getTableProps()}>
+            <TableHead>
                 {headerRow}
-            </thead>
-            <tbody {...getTableBodyProps()}>
+            </TableHead>
+            <TableBody {...getTableBodyProps()}>
                 {bodyRows}
-            </tbody>
-        </table>
+            </TableBody>
+        </MaUTable>
     )
 }
 
